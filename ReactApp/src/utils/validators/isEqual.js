@@ -1,7 +1,7 @@
 const IsEqual = (value, target) => {
     let errorMsg = '';
     if (value !== target) {
-        errorMsg = 'Parolele nu corespund';
+        errorMsg = 'The passwords do not match.';
     }
     return errorMsg;
 }

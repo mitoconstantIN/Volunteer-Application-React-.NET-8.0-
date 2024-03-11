@@ -86,7 +86,7 @@ function NavBarProfile() {
                       fontSize={"1.5vw"}
                       letterSpacing="0.005em"
                     >
-                      Teofil Munteanu
+                      Constantin Mitocaru
                     </Text>
                   </Box>
                   <Avatar
@@ -158,6 +158,10 @@ function NavBarProfile() {
                 <MenuItem
                   justifyContent={"center"}
                   _hover={{ background: "rgba(255,255,255,0.4)" }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = "http://localhost:3000/";
+                  }}
                 >
                   Log Out
                 </MenuItem>

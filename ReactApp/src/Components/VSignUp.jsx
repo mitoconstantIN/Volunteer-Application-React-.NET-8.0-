@@ -100,7 +100,7 @@ function VSignUp() {
               </Field>
               <Field name="lastName" validate={value => MultipleValidators(value, [NotEmpty])}>
                 {({ field, form }) => (
-                  <FormControl>
+                  <FormControl isInvalid={form.errors.password && form.touched.password}>
                     <FormLabel>Last Name</FormLabel>
                     <Input {...field} placeholder='Last Name...' />
                     <FormErrorMessage>{form.errors.lastName}</FormErrorMessage>
