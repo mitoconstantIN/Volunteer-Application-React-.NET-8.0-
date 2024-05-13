@@ -148,7 +148,7 @@ const UProfile = () => {
                     fontWeight="1000"
                     letterSpacing="0.05em"
                   >
-                    Teofil Munteanu
+                    Constantin Mitocaru
                   </Heading>
                   <Text
                     textAlign={["left"]}
@@ -158,7 +158,7 @@ const UProfile = () => {
                     fontWeight="light"
                     fontSize={"1vw"}
                   >
-                    andreiteofil01@gmail.com
+                    c.mitocaru22@gmail.com
                   </Text>
                   <Text
                     textAlign={["left"]}

@@ -71,7 +71,7 @@ function OSignUp() {
               <Field name="cpassword" validate={value => MultipleValidators(value, [NotEmpty, value => IsEqual(value, jsonData.password)])}>
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.cpassword && form.touched.cpassword} id="cpassword">
-                    <FormLabel variant="authEffect">Confirm Password:</FormLabel>
+                     <FormLabel variant="authEffect">Confirm Password:</FormLabel>
                     <Input {...field} type="password" />
                     <FormErrorMessage>{form.errors.cpassword}</FormErrorMessage>
                   </FormControl>
@@ -153,6 +153,7 @@ function OSignUp() {
                   type="submit"
                   onClick={(e) => {
                     e.preventDefault();
+                    window.location.href = "http://localhost:3000/OFeed";
                     fetch('https://localhost:7256/api/Organizer/CreateOrganizer', {
                       method: 'POST',
                       mode: 'cors',

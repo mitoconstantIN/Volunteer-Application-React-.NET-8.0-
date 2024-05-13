@@ -16,6 +16,7 @@ import Shop from "./Components/Shop";
 import CollaboratorShop from "./Components/CollaboratorShop";
 
 
+
 import { ChakraProvider } from "@chakra-ui/react";
 import { mainTheme } from "./styles/theme";
 import "@fontsource/inter";
@@ -125,6 +126,7 @@ function App() {
             </>
           }
         />
+        
 
         </Routes>
     </ChakraProvider>

@@ -9,7 +9,8 @@ import { isEmail, MinLenght, NotEmpty, IsEqual } from "../utils";
 
 function VSignUp() {
   const [password, setPasswoard] = useState('');
-
+  const [isFormValid, setIsFormValid] = useState(false);
+  
   return (
     <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
       <Formik onSubmit={(data) => {
@@ -32,7 +33,19 @@ function VSignUp() {
           }),
         });
         data.preventDefault();
-      }} initialValues={{ city: "Iasi" }} >
+      }} initialValues={{ city: "Iasi" }}
+        validate={(values) => { // Funcție de validare a formularului
+          const errors = {};
+          Object.keys(values).forEach(key => {
+            if (!values[key]) {
+              errors[key] = 'Required';
+            }
+          });
+          setIsFormValid(Object.keys(errors).length === 0); // Actualizarea stării de validare
+          return errors;
+        }}
+      >
+        {(formikProps) =>(
         <Flex p={8} flex={1} align={"center"} justify={"center"}>
           <Form>
             <Heading fontSize={["6vw", "4vw", "2.5vw"]} variant="authEffect">
@@ -131,13 +144,18 @@ function VSignUp() {
               </Button>
               <Button variant="auth" type="submit" onClick={(e) => {
                 e.preventDefault();
-                window.location.href = "http://localhost:3000/VFeed";
-              }}>
+                formikProps.handleSubmit();
+                if(isFormValid){
+                  window.location.href = "http://localhost:3000/VFeed";
+                }
+              }}
+              isDisabled={!isFormValid}
+              >
                 Sign up
               </Button>
             </Stack>
           </Form>
-        </Flex>
+        </Flex>)}
       </Formik>
       <Flex flex={1}>
         <Image alt={"Login Image"} objectFit={"cover"} src={"./SignUp1.png"} />
