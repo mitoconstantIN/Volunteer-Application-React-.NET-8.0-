@@ -56,3 +56,4 @@ export const OFeedData = [
     event_schedule: "Every day -> 10:00 - 14:00",
   },
 ];
+export default OFeedData;

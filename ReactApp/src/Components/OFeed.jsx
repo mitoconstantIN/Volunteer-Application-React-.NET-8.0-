@@ -39,7 +39,7 @@ import React, { useEffect, useState } from "react";
 import "@fontsource/inter";
 import "@fontsource/neuton";
 import Moment from 'moment';
-
+import OFeedData from './OFeedData';
 
 const OFeed = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
