@@ -11,7 +11,6 @@ namespace ecoMeet_API.Models
         public int ParticipantsCount { get; set; }
         public DateTime Date { get; set; }
         public int Points {  get; set; }
-        public virtual EventUser EventUser { get; set; }
-
+        public virtual ICollection<EventUser> EventUsers { get; set; }
     }
 }

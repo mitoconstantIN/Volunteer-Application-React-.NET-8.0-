@@ -51,19 +51,19 @@ namespace ecoMeet_API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9fc3a8b1-a3c9-44ae-8458-9abb12d87c32",
+                            Id = "217934a0-3dd9-4400-bd96-b6b37f8a8bd0",
                             Name = "Volunteer",
                             NormalizedName = "VOLUNTEER"
                         },
                         new
                         {
-                            Id = "34015193-1c96-4b6c-80bb-aa9fead9fc69",
+                            Id = "cb2a5d42-28be-4af5-b261-b525a455497c",
                             Name = "Organizer",
                             NormalizedName = "Organizer"
                         },
                         new
                         {
-                            Id = "c989fcd4-9c3e-44ff-923c-473f0b672466",
+                            Id = "2247f672-8e3a-4312-b1e6-eacaafd1ff75",
                             Name = "Collaborator",
                             NormalizedName = "COLLABORATOR"
                         });
@@ -254,10 +254,9 @@ namespace ecoMeet_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("EventId", "UserId")
                         .IsUnique();
 
                     b.ToTable("EventUsers");
@@ -288,11 +287,9 @@ namespace ecoMeet_API.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -310,11 +307,9 @@ namespace ecoMeet_API.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("OrganizationEmail")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrganizationName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
@@ -325,13 +320,12 @@ namespace ecoMeet_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Points")
+                    b.Property<int?>("Points")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
@@ -377,10 +371,9 @@ namespace ecoMeet_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CardId")
-                        .IsUnique();
+                    b.HasIndex("CardId");
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("UserId", "CardId")
                         .IsUnique();
 
                     b.ToTable("UserCards");
@@ -440,14 +433,14 @@ namespace ecoMeet_API.Migrations
             modelBuilder.Entity("ecoMeet_API.Models.EventUser", b =>
                 {
                     b.HasOne("ecoMeet_API.Models.Event", "Event")
-                        .WithOne("EventUser")
-                        .HasForeignKey("ecoMeet_API.Models.EventUser", "EventId")
+                        .WithMany("EventUsers")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ecoMeet_API.Models.User", "User")
-                        .WithOne("EventUser")
-                        .HasForeignKey("ecoMeet_API.Models.EventUser", "UserId")
+                        .WithMany("EventUsers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -459,14 +452,14 @@ namespace ecoMeet_API.Migrations
             modelBuilder.Entity("ecoMeet_API.Models.UserCard", b =>
                 {
                     b.HasOne("ecoMeet_API.Models.Card", "Card")
-                        .WithOne("UserCard")
-                        .HasForeignKey("ecoMeet_API.Models.UserCard", "CardId")
+                        .WithMany("UserCards")
+                        .HasForeignKey("CardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ecoMeet_API.Models.User", "User")
-                        .WithOne("UserCard")
-                        .HasForeignKey("ecoMeet_API.Models.UserCard", "UserId")
+                        .WithMany("UserCards")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -477,23 +470,19 @@ namespace ecoMeet_API.Migrations
 
             modelBuilder.Entity("ecoMeet_API.Models.Card", b =>
                 {
-                    b.Navigation("UserCard")
-                        .IsRequired();
+                    b.Navigation("UserCards");
                 });
 
             modelBuilder.Entity("ecoMeet_API.Models.Event", b =>
                 {
-                    b.Navigation("EventUser")
-                        .IsRequired();
+                    b.Navigation("EventUsers");
                 });
 
             modelBuilder.Entity("ecoMeet_API.Models.User", b =>
                 {
-                    b.Navigation("EventUser")
-                        .IsRequired();
+                    b.Navigation("EventUsers");
 
-                    b.Navigation("UserCard")
-                        .IsRequired();
+                    b.Navigation("UserCards");
                 });
 #pragma warning restore 612, 618
         }

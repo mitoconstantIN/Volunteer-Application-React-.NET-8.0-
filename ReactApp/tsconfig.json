@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "strict": true,
+      "jsx": "react",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": true,
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "baseUrl": "./src",
+      "paths": {
+        "*": ["node_modules/*", "src/types/*"],
+        "Context/*": ["Context/*"],
+        "Models/*" : ["Models/*"]
+      }
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+    
+  }
+  

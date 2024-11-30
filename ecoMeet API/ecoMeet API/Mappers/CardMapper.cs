@@ -16,5 +16,16 @@ namespace ecoMeet_API.Mappers
                 Description = cardModel.Description
             };
         }
+
+        public static Card ToCardFromCreateDTO(this CreateCardRequestDto cardDto)
+        {
+            return new Card
+            {
+                Title = cardDto.Title,
+                Points = cardDto.Points,
+                ImageUrl = cardDto.ImageUrl,
+                Description = cardDto.Description
+            };
+        }
     }
 }

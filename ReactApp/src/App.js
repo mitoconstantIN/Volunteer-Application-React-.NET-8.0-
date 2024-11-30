@@ -27,109 +27,89 @@ import { VFeedData } from "./Components/VFeedData";
 import { OFeedData } from "./Components/OFeedData";
 import { ShopData } from "./Components/ShopData";
 import {ProfileData} from "./Components/ProfileData"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { UserProvider } from "./Context/useAuth";
+
 
 function App() {
-  return (
+  return (   
+    <>
+    <UserProvider>
     <ChakraProvider resetCSS theme={mainTheme}>
       
       <Routes>
         <Route
           path="/"
-          element={
-            <>
-              <NavBar />
-              <UpperHomePage />
-              <Description />
-            </>
-          }
-        />
+          element={<>
+            <NavBar />
+            <UpperHomePage />
+            <Description />
+          </>} />
         <Route
           path="/OSignUp"
-          element={
-            <>
-              <NavBar/>
-              <OSignUp />
-            </>
-          }
-        />
+          element={<>
+            <NavBar />
+            <OSignUp />
+          </>} />
         <Route
           path="/VSignUp"
-          element={
-            <>
-              <NavBar/>
-              <VSignUp />
-            </>
-          }
-        />
+          element={<>
+            <NavBar />
+            <VSignUp />
+          </>} />
         <Route
           path="/CSignUp"
-          element={
-            <>
-              <NavBar />
-              <CSignUp />
-            </>
-          }
-        />
+          element={<>
+            <NavBar />
+            <CSignUp />
+          </>} />
         <Route
           path="/Login"
-          element={
-            <>
-              <NavBar/>
-              <Login />
-            </>
-          }
-        />
+          element={<>
+            <NavBar />
+            <Login />
+          </>} />
         <Route
           path="/VFeed"
-          element={
-            <>
-              <NavBarProfile />
-              <VFeed feed={VFeedData} />
-            </>
-          }
-        />
-        <Route path="/OFeed" element={<><NavBarProfile /><OFeed/></>} />
+          element={<>
+            <NavBarProfile />
+            <VFeed feed={VFeedData} />
+          </>} />
+        <Route path="/OFeed" element={<><NavBarProfile /><OFeed /></>} />
         <Route
 
           path="/UProfile"
-          element={
-            <>
-              <NavBarProfile />
-              <UProfile feed={VFeedData} />
-            </>
-          }
-        />
+          element={<>
+            <NavBarProfile />
+            <UProfile feed={VFeedData} />
+          </>} />
         <Route
           path="/OProfile"
-          element={
-            <>
-              <NavBarProfile />
-              <OProfile feed={VFeedData} />
-            </>
-          }
-        />
-      <Route
+          element={<>
+            <NavBarProfile />
+            <OProfile feed={VFeedData} />
+          </>} />
+        <Route
           path="/Shop"
-          element={
-            <>
-              <NavBarProfile />
-              <Shop feed={ShopData} />
-            </>
-          }
-        />
+          element={<>
+            <NavBarProfile />
+            <Shop feed={ShopData} />
+          </>} />
         <Route
           path="/CollaboratorShop"
-          element={
-            <>
-              <NavBarProfile />
-              <CollaboratorShop feed={ShopData} />
-            </>
-          }
-        />
-        
+          element={<>
+            <NavBarProfile />
+            <CollaboratorShop feed={ShopData} />
+          </>} />
 
-        </Routes>
+
+      </Routes>
+      
     </ChakraProvider>
+    <ToastContainer />
+    </UserProvider>
+    </>
   );
 }
 

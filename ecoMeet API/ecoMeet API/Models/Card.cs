@@ -10,6 +10,6 @@ namespace ecoMeet_API.Models
         public string ImageUrl { get; set; }
         public string Description { get; set; }
 
-        public UserCard UserCard {get; set;}
+        public virtual ICollection<UserCard> UserCards {get; set;}
     }
 }

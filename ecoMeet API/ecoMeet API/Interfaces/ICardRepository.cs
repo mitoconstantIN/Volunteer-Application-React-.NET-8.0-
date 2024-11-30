@@ -6,5 +6,7 @@ namespace ecoMeet_API.Interfaces
     {
        public Task<List<Card>> GetAllAsync();
        public Task<Card?> GetByIdAsync(int id);
+        Task<Card> CreateAsync(Card cardModel);
+        public Task DeleteAsync(int id);
     }
 }

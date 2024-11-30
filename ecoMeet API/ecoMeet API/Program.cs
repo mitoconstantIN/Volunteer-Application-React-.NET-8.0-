@@ -1,6 +1,6 @@
-
 using ecoMeet_API.Data;
 using ecoMeet_API.Interfaces;
+using ecoMeet_API.Middleware;
 using ecoMeet_API.Models;
 using ecoMeet_API.Repository;
 using ecoMeet_API.Service;
@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 
-
 namespace ecoMeet_API
 {
     public class Program
@@ -18,13 +17,24 @@ namespace ecoMeet_API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
+
             // Add services to the container.
 
             builder.Services.AddControllers();
             builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowLocalhost3000",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000")
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
+            });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -67,12 +77,12 @@ namespace ecoMeet_API
                     )
                 };
             });
-                
+
             builder.Services.AddScoped<IEventRepository, EventRepository>();
             builder.Services.AddScoped<ICardRepository, CardRepository>();
             builder.Services.AddScoped<ITokenService, TokenService>();
 
-           var app = builder.Build();
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -83,11 +93,14 @@ namespace ecoMeet_API
 
             app.UseHttpsRedirection();
 
+            app.UseCors("AllowLocalhost3000"); 
+
             app.UseAuthentication();
             app.UseAuthorization();
 
-
             app.MapControllers();
+
+            app.UseMiddleware<ApiKeyMiddleware>();
 
             app.Run();
         }

@@ -1,4 +1,6 @@
 ﻿using ecoMeet_API.Data;
+using ecoMeet_API.Dtos.Card;
+using ecoMeet_API.Dtos.Event;
 using ecoMeet_API.Interfaces;
 using ecoMeet_API.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +40,28 @@ namespace ecoMeet_API.Controllers
             return Ok(card.ToCardDto());
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateCardRequestDto cardDto)
+        {
+            var cardModel = cardDto.ToCardFromCreateDTO();
+            await _cardRepo.CreateAsync(cardModel);
+            return CreatedAtAction(nameof(GetById), new { id = cardModel.Id }, cardModel.ToCardDto());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteById([FromRoute] int id)
+        {
+            var card = await _cardRepo.GetByIdAsync(id);
+
+            if (card == null)
+            {
+                return NotFound();
+            }
+
+            await _cardRepo.DeleteAsync(id);
+
+            return NoContent();
+        }
         //[HttpPost]
         //public async Task<IActionResult> Create([FromRoute] int )
     }

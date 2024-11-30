@@ -1,0 +1,14 @@
+interface Event {
+  id: number;
+  titlu_activitate: string;
+  nume_firma: string;
+  date: string; // or Date if you're working with Date objects
+  image: string;
+  event_type: string;
+  duration: string;
+  participants: number;
+  points: number;
+  event_schedule: string;
+  descriere_activitate: string;
+  join: boolean;
+}

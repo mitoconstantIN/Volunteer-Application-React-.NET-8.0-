@@ -29,26 +29,40 @@ namespace ecoMeet_API.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>()
-               .HasOne(u => u.EventUser)
+               .HasMany(u => u.EventUsers)
                .WithOne(eu => eu.User)
-               .HasForeignKey<EventUser>(eu => eu.UserId);
+               .HasForeignKey(eu => eu.UserId);
 
             modelBuilder.Entity<User>()
-               .HasOne(u => u.UserCard)
+               .HasMany(u => u.UserCards)
                .WithOne(uc => uc.User)
-               .HasForeignKey<UserCard>(uc => uc.UserId);
+               .HasForeignKey(uc => uc.UserId);
 
             modelBuilder.Entity<Card>()
-              .HasOne(c => c.UserCard)
+              .HasMany(c => c.UserCards)
               .WithOne(uc => uc.Card)
-              .HasForeignKey<UserCard>(uc => uc.CardId)
+              .HasForeignKey(uc => uc.CardId)
               .OnDelete(DeleteBehavior.Cascade);
             
             modelBuilder.Entity<Event>()
-                .HasOne(e => e.EventUser)
+                .HasMany(e => e.EventUsers)
                 .WithOne(eu => eu.Event)
-                .HasForeignKey<EventUser>(eu => eu.EventId)
+                .HasForeignKey(eu => eu.EventId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<EventUser>()
+                .HasKey(eu => eu.Id);
+
+            modelBuilder.Entity<UserCard>()
+                .HasKey(eu => eu.Id);
+
+            modelBuilder.Entity<EventUser>()
+                .HasIndex(eu => new { eu.EventId, eu.UserId })
+                .IsUnique();
+
+            modelBuilder.Entity<UserCard>()
+                .HasIndex(eu => new { eu.UserId, eu.CardId })
+                .IsUnique();
 
             List<IdentityRole> roles = new List<IdentityRole>
             {

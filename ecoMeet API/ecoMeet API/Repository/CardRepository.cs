@@ -15,6 +15,7 @@ namespace ecoMeet_API.Repository
             _context = context;
         }
 
+
         public async Task<List<Card>> GetAllAsync()
         {
             return await _context.Cards.ToListAsync();
@@ -23,6 +24,22 @@ namespace ecoMeet_API.Repository
         public async Task<Card?> GetByIdAsync(int id)
         {
             return await _context.Cards.FindAsync(id);
+        }
+
+        async Task<Card> ICardRepository.CreateAsync(Card cardModel)
+        {
+            await _context.Cards.AddAsync(cardModel);
+            await _context.SaveChangesAsync();
+            return cardModel;
+        }
+        public async Task DeleteAsync(int id)
+        {
+            var card = await _context.Cards.FindAsync(id);
+            if (card != null)
+            {
+                _context.Cards.Remove(card);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

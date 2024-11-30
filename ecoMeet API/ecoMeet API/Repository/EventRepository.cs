@@ -33,7 +33,7 @@ namespace ecoMeet_API.Repository
             await _context.SaveChangesAsync();
             return eventModel;
         }
-
+        
         public Task<List<Event>> GetAllAsync()
         {
             return _context.Events.ToListAsync();

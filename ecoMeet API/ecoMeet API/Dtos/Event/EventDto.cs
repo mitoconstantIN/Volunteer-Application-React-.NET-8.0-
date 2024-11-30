@@ -11,6 +11,6 @@ namespace ecoMeet_API.Dtos.Event
         public int ParticipantsCount { get; set; }
         public DateTime Date { get; set; }
         public int Points { get; set; }
-        public virtual EventUser EventUser { get; set; }
+        public List<EventUser> EventUsers { get; set; }
     }
 }

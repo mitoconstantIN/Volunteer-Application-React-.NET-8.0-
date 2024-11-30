@@ -16,7 +16,7 @@ namespace ecoMeet_API.Mappers
                 ParticipantsCount = eventModel.ParticipantsCount,
                 Date = eventModel.Date,
                 Points = eventModel.Points,
-                EventUser = eventModel.EventUser
+                EventUsers = eventModel.EventUsers?.ToList(),
             };
         }
 
@@ -30,7 +30,6 @@ namespace ecoMeet_API.Mappers
                 ParticipantsCount = eventDto.ParticipantsCount,
                 Date = eventDto.Date,
                 Points = eventDto.Points
-                
             };
         }
 
